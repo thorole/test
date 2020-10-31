@@ -1,0 +1,36 @@
+body {
+    background: #03b5aa;
+    color: #fff;
+}
+
+.col-sm-3.rounded {
+    height: 15rem;
+    background: #037971;
+    cursor: pointer;
+}
+
+.animate {
+    height: 15rem;
+    background: #037971;
+    cursor: pointer;
+}
+
+.modal {
+    color: #000;
+}
+
+@keyframes example {
+    0%   {background-color: #03b5aa; left:0px; top:0px;}
+    25%  {background-color: #037971; left:200px; top:0px;}
+    50%  {background-color: #035754; left:200px; top:200px;}
+    75%  {background-color: #035754; left:0px; top:200px;}
+    100% {background-color: #023436; left:0px; top:0px;}
+  }
+  
+  /* The element to apply the animation to */
+  .animate {
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
