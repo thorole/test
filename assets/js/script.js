@@ -74,7 +74,7 @@ function getLocation() {
 
 function showPosition(position) {
     let newLine = document.createElement("br")
-    $(".col-12 p").append(position.coords.latitude, newLine, position.coords.longitude); 
+    $(".col-12 p").append(position.coords.latitude, newLine, position.coords.longitude);
 }
 
 
@@ -85,10 +85,10 @@ function showMyPosition(position) {
     let myLat = position.coords.latitude;
     let myLng = position.coords.longitude
     let mapProp = {
-        center:new google.maps.LatLng(myLat, myLng),
-        zoom:15,
+        center: new google.maps.LatLng(myLat, myLng),
+        zoom: 15,
     };
- 
+
     let map = new google.maps.Map(document.getElementById("google-map"), mapProp);
 }
 
@@ -113,7 +113,7 @@ function sendMail(contactForm) {
                 resetForm();
                 setTimeout(function () {
                     $(".contact-heading").text("Got a project in mind?");
-                    $(".contact-sub").text("Let's work together!")  
+                    $(".contact-sub").text("Let's work together!")
                 }, 8000)
             },
             function (error) {
@@ -126,3 +126,70 @@ function sendMail(contactForm) {
 function resetForm() {
     $("input, textarea").val("");
 }
+
+/*
+Monkey feeding
+*/
+
+let monkeyFood = ["banana", "apple", "carrot", "bread", "chicken", "fruit", "insect", "bug", "ant"];
+let monkeyHasEaten = [];
+
+$("#feed").click(function () {
+    let food = getValue();
+    if (!isFull(food)) {
+        let canEat = isMonkeyFood(food);
+        eatOrThrow(canEat, food);
+    }
+});
+
+$("#use-toilet").click(function () {
+    monkeyHasEaten = [];
+    $("#use-toilet").addClass("d-none");
+    $("#monkey-response").text("The monkey has emptied it's bowels and ready to eat again.")
+});
+
+function getValue() {
+    let food = $("#food").val()
+    food.trim();
+    $("#food").val("")
+    food = food.toLowerCase();
+    if (food === "") {
+        return "it when you hold back on the food."
+    }
+    else {
+        return food;
+    }
+}
+
+function isMonkeyFood(food) {
+    let canMonkeyEat = false;
+    for (let i = 0; i < monkeyFood.length; i++) {
+        if (food === monkeyFood[i] || food === monkeyFood[i] + "s") {
+            canMonkeyEat = true;
+            monkeyHasEaten.push(food)
+            break;
+        }
+    }
+    return canMonkeyEat;
+}
+
+function eatOrThrow(canEat, food) {
+    if (canEat) {
+        $("#monkey-response").text("You've fed the monkey: " + monkeyHasEaten)
+    }
+    else {
+        $("#monkey-response").text("The monkey doesn't like " + food + ".")
+    }
+}
+
+function isFull(foods) {
+    if (monkeyHasEaten.length >= 5) {
+        $("#monkey-response").text("The monkey is full and cannot eat anymore.")
+        $("#use-toilet").removeClass("d-none");
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
